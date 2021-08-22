@@ -11,6 +11,9 @@ white   = #FFFFFFFF
 gray    = #FF9F9F9F
 alert   = #FFBD2C40
 
+[variables]
+wireless-interface  = wlp7s0
+
 ;  _
 ; | |__   __ _ _ __ ___
 ; | '_ \ / _` | '__/ __|
@@ -18,10 +21,9 @@ alert   = #FFBD2C40
 ; |_.__/ \__,_|_|  |___/
 ; 
 
-[bar/thinkpad]
-monitor             = eDP
-monitor-fallback    = XWAYLAND0
-height              = 26
+[bar/samsung4k]
+monitor             = DisplayPort-0
+height              = 40
 fixed-center        = true
 background          = ${colors.clear}
 foreground          = ${colors.white}
@@ -31,12 +33,27 @@ padding-left        = 2
 padding-right       = 3
 module-margin-left  = 2
 module-margin-right = 2
-modules-left        = i3            spotify     mpd
+modules-left        = i3 spotify mpd
 modules-center      = date
-modules-right       = running-apps  pulseaudio  bluetooth wlan battery
+modules-right       = running-apps pulseaudio bluetooth wlan wired
+font-0              = pango:Fira Sans Mono:pixelsize=16;5
+font-1              = MaterialDesignIcons:size=22;6
+font-2              = pango:Fira Sans Mono:pixelsize=12;3
+
+[bar/shitty-aoc]
+inherit             = bar/samsung4k
+monitor             = HDMI-A-0
+height              = 26
 font-0              = pango:Fira Sans Mono:pixelsize=10;3
 font-1              = MaterialDesignIcons:size=14;4
 font-2              = pango:Fira Sans Mono:pixelsize=8;2
+
+
+[bar/thinkpad]
+inherit             = bar/shitty-aoc
+monitor             = eDP
+monitor-fallback    = XWAYLAND0
+modules-right       = running-apps pulseaudio bluetooth wlan battery
 
 ;                      _       _
 ;  _ __ ___   ___   __| |_   _| | ___  ___
@@ -91,13 +108,6 @@ interval    = 5
 exec        = ~/.config/polybar/scripts/bluetooth.sh
 label       = %output%
 
-[module/gpu]
-type        = custom/script
-format      = <label>
-interval    = 2
-exec        = cat /sys/class/drm/card0/device/gpu_busy_percent
-label       = "󰢮 %output%%"
-
 [module/spotify]
 type        = custom/script
 format      = <label>
@@ -114,29 +124,9 @@ interval        = 5
 format-online   = <label-song>
 label-song      = "󰝚 %artist% ~ %title%"
 
-[module/cbacklight]
-type        = custom/script
-format      = <label>
-interval    = 10
-exec        = xbacklight -get
-label       = "󱍖"
-click-left  = sleep 0.5 && xset dpms force off
-scroll-up   = xbacklight -inc 5 && ~/scripts/brightness-new.sh
-scroll-down = xbacklight -dec 5 && ~/scripts/brightness-new.sh
-
-[module/cpu]
-type        = internal/cpu
-interval    = 2
-label       = "󰣖 %percentage%%"
-
-[module/memory]
-type        = internal/memory
-interval    = 5
-label       = "󰘚 %percentage_used%%"
-
 [module/wlan]
 type                = internal/network
-interface           = wlan0
+interface           = ${variables.wireless-interface}
 interval            = 5
 label-connected     = "%essid%"
 format-connected    = "<ramp-signal>"
@@ -153,6 +143,13 @@ interval    = 10
 date        = %Y/%m/%d
 time        = %H:%M
 label       = "󰃭 %date%    󰥔 %time%"
+
+[module/wired]
+type        = custom/script
+format      = <label>
+interval    = 5
+exec        = ~/scripts/wired.sh
+label       = %output%
 
 [module/pulseaudio]
 type            = internal/pulseaudio
@@ -174,10 +171,8 @@ adapter                 = AC
 full-at                 = 97
 poll-interval           = 15
 format-charging         = %{A1:sh ~/scripts/battery.sh &:}<animation-charging> <label-charging>%{A}
-;label-charging         = "%percentage%%"
 label-charging          = ""
 format-discharging      = %{A1:sh ~/scripts/battery.sh &:}<ramp-capacity> <label-discharging>%{A}
-;label-discharging      = "%percentage%%"
 label-discharging       = ""
 label-full              = "󰂃 %percentage%%"
 ramp-capacity-0         = 󰂎
