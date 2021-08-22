@@ -1,0 +1,66 @@
+#           _              
+#   _______| |__  _ __ ___ 
+#  |_  / __| '_ \| '__/ __|
+# _ / /\__ \ | | | | | (__ 
+#(_)___|___/_| |_|_|  \___|
+#
+
+export VISUAL="nvim"
+export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
+export ZSH="$HOME/.oh-my-zsh"
+export ZSH_THEME=murilasso2
+export PATH=$HOME/.local/bin:$PATH
+
+source $ZSH/oh-my-zsh.sh
+source $HOME/.config/broot/launcher/bash/br
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)
+
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
+
+# - Aliases -
+# Listing
+alias ls="lsd -lL"
+alias la="lsd -AlL"
+alias lta="lsd -A --tree"
+alias lt="lsd --tree"
+
+# Default arguments
+alias rg="rg -i -j 8 --pretty -- "
+alias ip="ip -c"
+alias cal="cal -m -3"
+alias wikitf="wikit --lang fi"
+alias rm="rm -Iv"
+
+# Tools
+alias p="ping archlinux.org -c 3"
+alias t="./Applications/translator/translator"
+
+# Youtube-DL
+alias yt='youtube-dl -f bestvideo+bestaudio --merge-output-format mkv --add-metadata -o "%(uploader)s - %(title)s.%(ext)s"'
+alias yta='youtube-dl -f bestaudio --extract-audio --add-metadata -o "%(title)s.%(ext)s"'
+alias ph='youtube-dl -f best --add-metadata -o "%(title)s.%(ext)s"'
+
+# Package management
+alias install="yay -S --answerclean N --answerdiff N"
+alias uninstall="yay -Rs"
+alias search="yay -Ss"
+alias searchinstalled="yay -Qs"
+alias update="yay -Syu --answerclean N --answerdiff N"
+

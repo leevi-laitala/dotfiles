@@ -1,0 +1,37 @@
+conky.config = {
+    update_interval = 1,
+
+    default_color = 'E8D8DB',
+    default_outline_color = 'BBBBBB',
+    default_shade_color = '000000',
+
+    draw_outline = false,
+    draw_shades = true,
+
+    font = 'Cantarell:style=Thin:antialias=true:size=256',
+
+    out_to_x = true,
+    out_to_console = false,
+    out_to_stderr = false,
+
+    own_window = true,
+    own_window_type = 'override',
+    own_window_transparent = true,
+    own_window_class = 'Conky',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+    double_buffer = true,
+    background = true,
+    minimum_width = 4,
+    minimum_height = 4,
+
+    alignment = 'top_left',
+    gap_x = 128,
+    gap_y = 900,
+
+    use_xft = true
+}
+
+conky.text = [[
+${offset 0}${voffset 0}${font Cantarell:style=Thin:antialias=true:size=256}${time %H:%M}${font Cantarell:style=Light:antialias=true:size=72}${time %d %B %Y}
+]]

@@ -1,0 +1,207 @@
+#  _       _ _
+# (_)_ __ (_) |_
+# | | '_ \| | __|
+# | | | | | | |_
+# |_|_| |_|_|\__|
+# 
+
+font pango:Ubuntu 24
+
+default_border none
+default_floating_border normal 0
+floating_modifier $mod
+title_align center
+show_marks no
+
+gaps inner 128
+gaps outer 0 
+gaps top 0
+
+set $mod Mod4
+set $FLOAT floating enable, border normal, mark --add f
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+#            _
+#   ___ ___ | | ___  _ __ ___
+#  / __/ _ \| |/ _ \| '__/ __|
+# | (_| (_) | | (_) | |  \__ \
+#  \___\___/|_|\___/|_|  |___/
+#  -> Nord theme
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #4C566A #4C566A #ECEFF4 #4C566A   #4C566A
+client.focused_inactive #3B4252 #3B4252 #D8DEE9 #3B4252   #3B4252
+client.unfocused        #3B4252 #3B4252 #D8DEE9 #3B4252   #3B4252
+client.placeholder      #3B4252 #3B4252 #D8DEE9 #3B4252   #3B4252
+client.background       #3B4252
+
+#      _             _
+#  ___| |_ __ _ _ __| |_ _   _ _ __     __ _ _ __  _ __  ___
+# / __| __/ _` | '__| __| | | | '_ \   / _` | '_ \| '_ \/ __|
+# \__ \ || (_| | |  | |_| |_| | |_) | | (_| | |_) | |_) \__ \
+# |___/\__\__,_|_|   \__|\__,_| .__/   \__,_| .__/| .__/|___/
+#                             |_|           |_|   |_|
+#
+
+exec_always --no-startup-id picom --config ~/.config/picom/config --experimental-backends
+exec        --no-startup-id ~/.fehbg
+exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
+exec_always --no-startup-id conky
+exec        --no-startup-id numlockx
+exec_always --no-startup-id pacmd unload-module module-role-cork
+exec_always --no-startup-id xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 1
+exec        --no-startup-id xbindkeys
+exec        --no-startup-id mpd
+exec        --no-startup-id sh ~/scripts/battery-notify.sh
+exec        --no-startup-id dunst
+exec_always --no-startup-id pactl unload-module module-role-cork
+
+#  _              _     _           _
+# | | _____ _   _| |__ (_)_ __   __| |___
+# | |/ / _ \ | | | '_ \| | '_ \ / _` / __|
+# |   <  __/ |_| | |_) | | | | | (_| \__ \
+# |_|\_\___|\__, |_.__/|_|_| |_|\__,_|___/
+#           |___/
+
+bindsym $mod+Control+s      exec ~/Code/screenshot-tool/screenshot.sh
+bindsym $mod+Control+b      exec sh ~/scripts/battery.sh
+
+bindsym $mod+Return         exec st
+bindsym $mod+Shift+d      exec dmenu_run -i
+bindsym $mod+d              exec ulauncher
+
+bindsym $mod+Shift+q        kill
+
+bindsym $mod+h              focus left
+bindsym $mod+j              focus down
+bindsym $mod+k              focus up
+bindsym $mod+l              focus right
+bindsym $mod+space          focus mode_toggle
+bindsym $mod+a              focus parent
+#bindsym $mod+d              focus child
+
+bindsym $mod+Shift+h        move left
+bindsym $mod+Shift+j        move down
+bindsym $mod+Shift+k        move up
+bindsym $mod+Shift+l        move right
+
+bindsym $mod+b              split h
+bindsym $mod+v              split v
+
+bindsym $mod+c              move absolute position center
+
+#bindsym $mod+Shift+space      floating    toggle
+bindsym $mod+Shift+space    "mark --add _; [con_mark=f] floating disable, border none, mark --add --toggle _; [con_mark=_] floating enable, border normal; mark --add --toggle f;"
+bindsym $mod+s              sticky      toggle
+bindsym $mod+f              fullscreen  toggle
+
+bindsym $mod+1              workspace $ws1
+bindsym $mod+2              workspace $ws2
+bindsym $mod+3              workspace $ws3
+bindsym $mod+4              workspace $ws4
+bindsym $mod+5              workspace $ws5
+bindsym $mod+6              workspace $ws6
+bindsym $mod+7              workspace $ws7
+bindsym $mod+8              workspace $ws8
+bindsym $mod+9              workspace $ws9
+bindsym $mod+0              workspace $ws10
+
+bindsym $mod+Shift+1        move container to workspace $ws1
+bindsym $mod+Shift+2        move container to workspace $ws2
+bindsym $mod+Shift+3        move container to workspace $ws3
+bindsym $mod+Shift+4        move container to workspace $ws4
+bindsym $mod+Shift+5        move container to workspace $ws5
+bindsym $mod+Shift+6        move container to workspace $ws6
+bindsym $mod+Shift+7        move container to workspace $ws7
+bindsym $mod+Shift+8        move container to workspace $ws8
+bindsym $mod+Shift+9        move container to workspace $ws9
+bindsym $mod+Shift+0        move container to workspace $ws10
+
+bindsym $mod+Control+i      exec sh ~/scripts/i3options.sh
+bindsym $mod+Control+p      exec sh ~/scripts/poweroptions.sh
+
+bindsym $mod+Shift+e        exec emote
+
+bindsym $mod+plus           gaps inner current plus  16
+bindsym $mod+minus          gaps inner current minus 16
+
+bindsym $mod+r              mode "Resize"
+bindsym $mod+m              mode "Move" focus floating
+
+#             _
+#  _ __ _   _| | ___  ___
+# | '__| | | | |/ _ \/ __|
+# | |  | |_| | |  __/\__ \
+# |_|   \__,_|_|\___||___/
+# 
+
+for_window [class="^.*"]                border pixel 0
+for_window [class = ".*"]               title_format "%title   ::   %class"
+
+for_window [instance="float"]           $FLOAT
+for_window [window_role="pop-up"]       $FLOAT
+for_window [window_role="bubble"]       $FLOAT
+for_window [window_role="task_dialog"]  $FLOAT
+for_window [window_role="Preferences"]  $FLOAT
+for_window [window_role="About"]        $FLOAT 
+for_window [window_type="dialog"]       $FLOAT
+for_window [window_type="menu"]         $FLOAT
+
+for_window [class="mpv"]    	  	    $FLOAT
+for_window [class="Sxiv"]    	  	    $FLOAT
+for_window [title="^SFML"]    	  	    $FLOAT
+for_window [class="QjackCtl"]           $FLOAT
+for_window [class="Virt-manager"]       $FLOAT
+for_window [class="minecraft-launcher"] $FLOAT
+
+for_window [title="Rockstar Games Launcher"]                        $FLOAT
+for_window [class="net-technicpack-launcher-LauncherMain"]          $FLOAT
+for_window [title="Steam Guard - Computer Authorization Required"]  $FLOAT
+
+for_window [class="Spotify"]	  	    move to workspace $ws10
+for_window [class="Audacious"]		    move to workspace $ws10
+for_window [class="Telegram"]	  	    move to workspace $ws9
+for_window [class="TeamSpeak 3"]	    move to workspace $ws9
+for_window [class="Steam"]		        move to workspace $ws8
+for_window [class="Brave"]	    	    move to workspace $ws6
+for_window [class="^Tor Browser"]	    move to workspace $ws7
+
+#                      _
+#  _ __ ___   ___   __| | ___  ___
+# | '_ ` _ \ / _ \ / _` |/ _ \/ __|
+# | | | | | | (_) | (_| |  __/\__ \
+# |_| |_| |_|\___/ \__,_|\___||___/
+# 
+
+mode "Resize" {
+  bindsym h resize shrink width   64 px
+  bindsym j resize grow   height  64 px
+  bindsym k resize shrink height  64 px
+  bindsym l resize grow   width   64 px
+  
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+
+mode "Move" {
+	bindsym $mod+Tab focus right
+	
+	bindsym h	move left   128 px
+	bindsym j	move down   128 px
+	bindsym k	move up     128 px
+	bindsym l	move right  128 px
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
