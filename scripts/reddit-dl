@@ -1,0 +1,37 @@
+#!/usr/bin/sh
+
+echo "Intializing..."
+
+url=$1
+customFname=$2
+
+dlDir="/home/$USER/Downloads"
+oldDir="$(pwd)"
+
+echo "Getting video info..."
+formats=$(youtube-dl --list-formats $url)
+
+videoFormat=$(echo "$formats" | grep "best" | awk '{print $1}')
+audioFormat=$(echo "$formats" | grep "48000Hz" | awk '{print $1}')
+
+cd $dlDir
+
+if [[ -z $customFname ]]; then
+    if [[ -z $audioFormat ]]; then
+        echo -e "Audio format not found...\nDownloading video only..."
+        youtube-dl --quiet -f$videoFormat --add-metadata -o "%(uploader)s - %(title)s.%(ext)s" "$url"
+    else
+        echo "Downloading..."
+        youtube-dl --quiet -f$videoFormat+$audioFormat --merge-output-format mkv --add-metadata -o "%(uploader)s - %(title)s.%(ext)s" "$url"
+    fi
+else
+    if [[ -z $audioFormat ]]; then
+        echo -e "Audio format not found...\nDownloading video only..."
+        youtube-dl --quiet -f$videoFormat --add-metadata -o "%(uploader)s - $customFname.%(ext)s" "$url"
+    else
+        echo "Downloading..."
+        youtube-dl --quiet -f$videoFormat+$audioFormat --merge-output-format mkv --add-metadata -o "%(uploader)s - $customFname.%(ext)s" "$url"
+    fi
+fi
+
+cd $oldDir

@@ -1,0 +1,14 @@
+#!/bin/sh
+tmpFile="/tmp/cover.png"
+
+if [ ! -e $tmpFile ]; then
+  touch $tmpFile
+fi
+
+echo $TERM | grep -vq linux
+
+if [ $? -eq 0 ]; then
+    tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"
+else
+    st -e tmux new-session "tmux source-file ~/.ncmpcpp/tmux_session"
+fi

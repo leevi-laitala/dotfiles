@@ -1,0 +1,98 @@
+#!/bin/sh
+cmd=$1
+titleraw=$2
+title=$(echo $titleraw | sed 's/ /-/g' | sed 's/[A-Ö]/\L&/g')
+
+if [ -z "$titleraw" ]; then
+  title="default"
+fi
+
+name=$(echo "$(date +"%Y-%m-%d_%H-%M-%S")_$title")
+dir=$HOME/Nextcloud/Documents/notes/
+fname=$(echo $dir$name)
+fileBegin=12
+
+list=$(lsd -l --blocks name $dir | rg -j 8 $title)
+
+# Printing all available commands
+if [ "$cmd" = "help" ] || [ -z $cmd ]; then
+  echo -e 'Usage: note <command> "<title / expression>" \n'
+  echo -e "Available commands: help              prints help info"
+  echo -e "                    new / create      creates new note with given title"
+  echo -e "                    search            searches given expression through notes"
+  echo -e "                    list              lists all notes"
+  echo -e "                    modify / edit     modifies note"
+  echo -e "                    remove            removes note"
+  echo -e "                    preview / print   prints note to terminal"
+  exit 0
+fi
+
+# Listing notes
+if [ "$cmd" = "list" ]; then
+  #lsd -l --blocks name $dir | sed 's/_//g;s/[0-9]//g' | cut -c5-
+  lsd -l --blocks name $dir | cut -c25-
+  exit 0
+fi
+
+# Undress
+if [ "$cmd" = "undress" ]; then
+  cat "$HOME/scripts/note"
+  exit 0
+fi
+
+# Creating new note
+if [ "$cmd" = "new" ] || [ "$cmd" = "create" ] && [ -z $list ] && [ ! -z "$titleraw" ]; then
+  touch $fname
+
+  echo -e "$title" >> $fname
+
+  echo "Author: Laitala Leevi" >> $fname
+  echo "Date: $(date +'%Y/%m/%d  %H:%M:%S')" >> $fname
+  
+  figlet $titleraw >> $fname
+  echo -e "\n \n" >> $fname
+
+  vim $fname +$fileBegin
+  exit 0
+fi
+
+# Modifying note
+if [ "$cmd" = "modify" ] || [ "$cmd" = "edit" ] && [ ! -z $titleraw ]; then
+  files=$(find $dir -name "*$title")
+  number=$(find $dir -name "*$title" | wc -l)
+
+  if [[ $number -gt 1 ]]; then
+    echo "Found $number matches for '$titleraw', edit both? [y/N]"
+    read response
+
+    if [[ "$response" = "y" ]]; then
+      vim $files +$fileBegin
+    fi
+  else
+    vim $files +$fileBegin
+  fi
+  exit 0
+fi
+
+# Removing
+if [ "$cmd" = "remove" ] && [ ! -z $titleraw ]; then
+  rm -iv $(find $dir -name "*$title")
+  exit 0
+fi
+
+# Searching through notes for expression
+if [ "$cmd" = "search" ] && [ ! -z $titleraw ]; then
+  rg -j 8 -iH $title $dir
+  exit 0
+fi
+
+# Printing note
+if [ "$cmd" = "preview" ] || [ "$cmd" = "print" ] && [ ! -z $titleraw ]; then
+  cat $(find $dir -name "*$title")
+  exit 0
+fi
+
+if [ -z "$titleraw" ]; then
+  echo -e "Command not recognized, or title is required to use this operation. \nUse command 'help' for more details."
+  exit 1
+fi

@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+youtube-dl -f mp4 --recode-video mkv -o "%(uploader)s - %(title)s.%(ext)s" $1

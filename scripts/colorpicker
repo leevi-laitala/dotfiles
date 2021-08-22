@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+color=$(xcolor --format HEX)
+
+echo "$color" | xclip -selection clipboard
+dunstify -i colorize -t 5000 "Color picked" "Color '$color' copied to clipboard!"

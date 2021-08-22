@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+
+url=$(xclip -o)
+
+if [ ! -z "$url" ]; then
+    mpv "$url"
+fi

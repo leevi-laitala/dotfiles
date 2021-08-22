@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ ! -z $1 ]; then
+  packages="$(yay -Qs | rg -i -j 8 local | rg -i -j 8 $1 | awk '{print $1}' | sed 's/local\///g')"
+
+  if [ -z "$packages" ]; then
+    echo -e "No matches for '$1'"
+  else
+    echo -e "$packages"
+  fi
+else
+  echo -e "Search all installed packages using given expression\nUsage: searchinstalled <expression>"
+fi
