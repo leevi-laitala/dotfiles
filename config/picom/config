@@ -1,0 +1,117 @@
+backend = "glx";
+glx-no-stencil = true;
+glx-copy-from-front = false;
+glx-use-copysubbuffermesa = false;
+glx-no-rebind-pixmap = true;
+#glx-swap-method = "undefined";
+vsync = false;
+refresh-rate = 60;
+
+mark-wmwin-foicused = true;
+mark-ovredir-focused = true;
+#use-ewmh-active-win = false;
+#detect-rounded-corners = false;
+#detect-client-opacity = true;
+#dbe = false;
+#unredir-if-possible = false;
+detect-transient = false;
+detect-client-leader = false;
+
+fading = true;
+fade-delta = 7;
+fade-in-step = 0.03;
+fade-out-step = 0.03;
+
+# Animations
+transition-length = 300
+transition-pow-x = 0.1
+transition-pow-y = 0.1
+transition-pow-w = 0.1
+transition-pow-h = 0.1
+size-transition = true
+spawn-center-screen = false
+spawn-center = true
+
+# Rounded corners
+corner-radius = 0;
+round-borders = false;
+rounded-corners-exclude = [
+  "class_g='Polybar'",
+  "window_type='dropdown_menu'",
+  "window_type='menu'"
+];
+
+# Shadow
+shadow = true;
+#no-dnd-shadow = true;
+#no-dock-shadow = true;
+shadow-radius = 18;
+shadow-offset-x = -8;
+shadow-offset-y = -8;
+shadow-opacity = 0.35;
+shadow-red = 0.0;
+shadow-green = 0.0;
+shadow-blue = 0.0;
+shadow-exclude = [ 
+	"override_redirect = 1 && !WM_CLASS@:s",
+	"name*='Notification'",
+    "class_g='slop'",
+    "class_g='volnoti'",
+    "class_g='Polybar'",
+    "class_g='Ulauncher'",
+    "class_g='i3-frame'",
+    "class_g='Conky'"
+];
+
+# Opacity
+#mark-overdir-focused = false;
+
+#menu-opacity = 0.75;
+inactive-opacity = 1;
+active-opacity = 1;
+#frame-opacity = 0.75;
+#alpha-step = 0.05;
+
+opacity-rule = [
+    "0:_NET_WM_STATE@:32a*='_NET_WM_STATE_HIDDEN'",
+	"75:class_g='Spotify'",
+    "75:class_g='Leafpad'",
+    "75:class_g='Mousepad'",
+    "75:class_g='Audacious'",
+    "75:class_g='Typora'",
+    "75:class_g='Thunar'",
+    "75:name*='Telegram'",
+    "75:class_g='Steam'",
+    "75:name*='LibreOffice'"
+];
+
+# Blur
+blur: {
+    method = "kawase";
+    strength = 18;
+    background = false;
+    background-frame = false;
+    background-fixed = false;
+}
+
+blur-background-exclude = [
+	"window_type = 'fullscreen'",
+	"window_type = 'desktop'",
+	"window_type = 'dropdown_menu'",
+	"window_type = 'popup_menu'",
+	"window_type = 'menu'",
+    "class_g='slop'",
+    "class_g='Minecraft'",
+	"name*='Notification'",
+    "class_g='Ulauncher'"
+];
+
+use-damage = true;
+resize-damage = 9;
+
+wintypes:
+{
+    dialog = { shadow = false; full-shadow = false; opacity=100; };
+    menu = { shadow = false; full-shadow = false; opacity=100; };
+    dropdown_menu = { shadow = false; full-shadow = false; opacity=100; };
+}
