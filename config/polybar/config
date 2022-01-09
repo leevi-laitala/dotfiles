@@ -148,7 +148,7 @@ label       = "󰃭 %date%    󰥔 %time%"
 type        = custom/script
 format      = <label>
 interval    = 5
-exec        = ~/scripts/wired.sh
+exec        = ~/scripts/script/wired.sh
 label       = %output%
 
 [module/pulseaudio]
@@ -170,9 +170,9 @@ battery                 = BAT0
 adapter                 = AC
 full-at                 = 97
 poll-interval           = 15
-format-charging         = %{A1:sh ~/scripts/battery.sh &:}<animation-charging> <label-charging>%{A}
+format-charging         = %{A1:sh ~/scripts/script/battery.sh &:}<animation-charging> <label-charging>%{A}
 label-charging          = ""
-format-discharging      = %{A1:sh ~/scripts/battery.sh &:}<ramp-capacity> <label-discharging>%{A}
+format-discharging      = %{A1:sh ~/scripts/script/battery.sh &:}<ramp-capacity> <label-discharging>%{A}
 label-discharging       = ""
 label-full              = "󰂃 %percentage%%"
 ramp-capacity-0         = 󰂎
