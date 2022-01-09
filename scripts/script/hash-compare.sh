@@ -5,10 +5,10 @@ file2="$2"
 if [ -z "$file1" ] || [ -z "$file2" ]; then
   echo 'Usage: hash-compare "/path/to/file/1" "/path/to/file/2"'
 else
-  echo "$(tput setaf 2; echo "==>") $(tput setaf 15; echo "SHA512:")"
+  echo "$(tput setaf 2; echo "==>") $(tput setaf 15; echo "SHA256:")"
 
-  hash1=$(sha512sum "$file1" | awk '{print $1}')
-  hash2=$(sha512sum "$file2" | awk '{print $1}')
+  hash1=$(sha256sum "$file1" | awk '{print $1}')
+  hash2=$(sha256sum "$file2" | awk '{print $1}')
 
   echo -e "$hash1 : $file1\n$hash2 : $file2\n"
 

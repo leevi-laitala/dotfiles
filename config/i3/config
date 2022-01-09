@@ -13,7 +13,7 @@ floating_modifier $mod
 title_align center
 show_marks no
 
-gaps inner 128
+gaps inner 64
 gaps outer 0 
 gaps top 0
 
@@ -58,13 +58,13 @@ exec        --no-startup-id ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 exec_always --no-startup-id conky
 exec        --no-startup-id numlockx
-exec_always --no-startup-id pacmd unload-module module-role-cork
 exec_always --no-startup-id xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 1
 exec        --no-startup-id xbindkeys
 exec        --no-startup-id mpd
 exec        --no-startup-id sh ~/scripts/battery-notify.sh
 exec        --no-startup-id dunst
 exec_always --no-startup-id pactl unload-module module-role-cork
+exec_always --no-startup-id sleep 5 && xmodmap /xstart/config/x/.Xmodmap
 
 #  _              _     _           _
 # | | _____ _   _| |__ (_)_ __   __| |___
@@ -73,12 +73,13 @@ exec_always --no-startup-id pactl unload-module module-role-cork
 # |_|\_\___|\__, |_.__/|_|_| |_|\__,_|___/
 #           |___/
 
-bindsym $mod+Control+s      exec ~/Code/screenshot-tool/screenshot.sh
+bindsym $mod+Control+s      exec ~/Documents/Repositories/Code/screenshot-tool/screenshot.sh
 bindsym $mod+Control+b      exec sh ~/scripts/battery.sh
 
 bindsym $mod+Return         exec st
-bindsym $mod+Shift+d      exec dmenu_run -i
-bindsym $mod+d              exec ulauncher
+#bindsym $mod+d             exec dmenu_run -i
+bindsym $mod+d              exec rofi -show drun -theme nord
+bindsym $mod+Shiftd         exec ulauncher
 
 bindsym $mod+Shift+q        kill
 
@@ -158,11 +159,15 @@ for_window [window_type="dialog"]       $FLOAT
 for_window [window_type="menu"]         $FLOAT
 
 for_window [class="mpv"]    	  	    $FLOAT
+for_window [class="zoom"]    	  	    $FLOAT
 for_window [class="Sxiv"]    	  	    $FLOAT
 for_window [title="^SFML"]    	  	    $FLOAT
 for_window [class="QjackCtl"]           $FLOAT
+for_window [class="Godot_Engine"]       $FLOAT
 for_window [class="Virt-manager"]       $FLOAT
 for_window [class="minecraft-launcher"] $FLOAT
+for_window [class="origin.exe"]         $FLOAT
+for_window [title="SUDOPROMPT"]	  	    $FLOAT
 
 for_window [title="Rockstar Games Launcher"]                        $FLOAT
 for_window [class="net-technicpack-launcher-LauncherMain"]          $FLOAT
@@ -172,6 +177,7 @@ for_window [class="Spotify"]	  	    move to workspace $ws10
 for_window [class="Audacious"]		    move to workspace $ws10
 for_window [class="Telegram"]	  	    move to workspace $ws9
 for_window [class="TeamSpeak 3"]	    move to workspace $ws9
+for_window [class="discord"]	        move to workspace $ws9
 for_window [class="Steam"]		        move to workspace $ws8
 for_window [class="Brave"]	    	    move to workspace $ws6
 for_window [class="^Tor Browser"]	    move to workspace $ws7
@@ -184,10 +190,10 @@ for_window [class="^Tor Browser"]	    move to workspace $ws7
 # 
 
 mode "Resize" {
-  bindsym h resize shrink width   64 px
-  bindsym j resize grow   height  64 px
-  bindsym k resize shrink height  64 px
-  bindsym l resize grow   width   64 px
+  bindsym h resize shrink width   256 px
+  bindsym j resize grow   height  256 px
+  bindsym k resize shrink height  256 px
+  bindsym l resize grow   width   256 px
   
   bindsym Return mode "default"
   bindsym Escape mode "default"

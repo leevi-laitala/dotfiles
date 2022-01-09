@@ -1,5 +1,5 @@
 #!/usr/bin/sh
-opt1="Lock"
+opt1="Suspend"
 opt2="Reboot"
 opt3="Shutdown"
 
@@ -13,7 +13,7 @@ confirm=$(echo -e "No\nYes" | dmenu -i -p "Sure you want to $opt your machine?")
 case $opt in
     $opt1)
         #echo "Locking"
-        slock &
+        systemctl suspend &
         exit 0
         ;;
     $opt2)
@@ -23,7 +23,7 @@ case $opt in
         ;;
     $opt3)
         #echo "Shutting down"
-        shutdown &
+        shutdown now &
         exit 0
         ;;
 esac

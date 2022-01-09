@@ -53,13 +53,20 @@ shadow-red = 0.0;
 shadow-green = 0.0;
 shadow-blue = 0.0;
 shadow-exclude = [ 
+	"window_type = 'fullscreen'",
+	"window_type = 'desktop'",
+	"window_type = 'dropdown_menu'",
+	"window_type = 'popup_menu'",
+	"window_type = 'menu'",
 	"override_redirect = 1 && !WM_CLASS@:s",
 	"name*='Notification'",
     "class_g='slop'",
     "class_g='volnoti'",
     "class_g='Polybar'",
     "class_g='Ulauncher'",
+    "class_g='Apple Music'",
     "class_g='i3-frame'",
+    "class_g='Rofi'",
     "class_g='Conky'"
 ];
 
@@ -101,7 +108,9 @@ blur-background-exclude = [
 	"window_type = 'popup_menu'",
 	"window_type = 'menu'",
     "class_g='slop'",
+    "class_g='Apple Music'",
     "class_g='Minecraft'",
+    "class_g='Rofi'",
 	"name*='Notification'",
     "class_g='Ulauncher'"
 ];
@@ -111,7 +120,7 @@ resize-damage = 9;
 
 wintypes:
 {
-    dialog = { shadow = false; full-shadow = false; opacity=100; };
-    menu = { shadow = false; full-shadow = false; opacity=100; };
-    dropdown_menu = { shadow = false; full-shadow = false; opacity=100; };
+    dialog = { shadow = false; full-shadow = false; opacity=100; blur = false; };
+    menu = { shadow = false; full-shadow = false; opacity=100; blur = false; };
+    dropdown_menu = { shadow = false; full-shadow = false; opacity=100; blur = false; };
 }

@@ -13,8 +13,9 @@ export ZSH_THEME=murilasso2
 export PATH=$HOME/.local/bin:$PATH
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.config/broot/launcher/bash/br
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+#source $HOME/.config/broot/launcher/bash/br
+#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -50,12 +51,15 @@ alias rm="rm -Iv"
 
 # Tools
 alias p="ping archlinux.org -c 3"
-alias t="./Applications/translator/translator"
+alias t="~/Applications/translator/translator"
+
+alias cdcode="cd ~/Documents/Repositories/Code/"
 
 # Youtube-DL
 alias yt='youtube-dl -f bestvideo+bestaudio --merge-output-format mkv --add-metadata -o "%(uploader)s - %(title)s.%(ext)s"'
 alias yta='youtube-dl -f bestaudio --extract-audio --add-metadata -o "%(title)s.%(ext)s"'
 alias ph='youtube-dl -f best --add-metadata -o "%(title)s.%(ext)s"'
+alias yle='yle-dl --sublang none'
 
 # Package management
 alias install="yay -S --answerclean N --answerdiff N"
@@ -64,3 +68,6 @@ alias search="yay -Ss"
 alias searchinstalled="yay -Qs"
 alias update="yay -Syu --answerclean N --answerdiff N"
 
+# Tmux aliases
+alias tnew="tmux new-session -s"
+alias tlist="tmux list-sessions"

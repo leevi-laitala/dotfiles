@@ -1,0 +1,2 @@
+#!/bin/sh
+sxiv -t -g 1920x1080+960+540 /usr/share/icons/material-icons-png/material-icons-png/black

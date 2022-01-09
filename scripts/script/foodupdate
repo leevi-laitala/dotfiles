@@ -1,0 +1,16 @@
+echo Connecting to jarvenpaanlukio.fi/ruokalista-2/ ...
+w3m jarvenpaanlukio.fi/ruokalista-2 > ~/scripts/foodsource
+echo "Extracting data ..."
+echo " "
+
+sed -n '/Maanantai /,/Järvenpään lukio somessa/p' ~/scripts/foodsource >> ~/scripts/food
+
+tput setaf 4; cat ~/scripts/food |head -n -4
+
+echo " "
+tput setaf 15; echo "Cleaning up ..."
+
+rm ~/scripts/foodsource
+rm ~/scripts/food
+
+echo " "
