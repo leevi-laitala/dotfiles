@@ -56,7 +56,7 @@ client.background       #3B4252
 exec_always --no-startup-id picom --config ~/.config/picom/config --experimental-backends
 exec        --no-startup-id ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
-exec_always --no-startup-id conky
+#exec_always --no-startup-id conky
 exec        --no-startup-id numlockx
 exec_always --no-startup-id xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 1
 exec        --no-startup-id xbindkeys
@@ -79,7 +79,7 @@ bindsym $mod+Control+b      exec sh ~/scripts/battery.sh
 bindsym $mod+Return         exec st
 #bindsym $mod+d             exec dmenu_run -i
 bindsym $mod+d              exec rofi -show drun -theme nord
-bindsym $mod+Shiftd         exec ulauncher
+bindsym $mod+w              exec firefox
 
 bindsym $mod+Shift+q        kill
 
@@ -128,8 +128,8 @@ bindsym $mod+Shift+8        move container to workspace $ws8
 bindsym $mod+Shift+9        move container to workspace $ws9
 bindsym $mod+Shift+0        move container to workspace $ws10
 
-bindsym $mod+Control+i      exec sh ~/scripts/i3options.sh
-bindsym $mod+Control+p      exec sh ~/scripts/poweroptions.sh
+bindsym $mod+Control+i      exec sh ~/scripts/script/i3options.sh
+bindsym $mod+Control+p      exec sh ~/scripts/script/poweroptions.sh
 
 bindsym $mod+Shift+e        exec emote
 
@@ -167,19 +167,19 @@ for_window [class="Godot_Engine"]       $FLOAT
 for_window [class="Virt-manager"]       $FLOAT
 for_window [class="minecraft-launcher"] $FLOAT
 for_window [class="origin.exe"]         $FLOAT
-for_window [title="SUDOPROMPT"]	  	    $FLOAT
+for_window [class="Yad"]                $FLOAT
+for_window [class="calculator"]         $FLOAT
 
+for_window [class="Pulseaudio-equalizer-gtk"]                       $FLOAT
 for_window [title="Rockstar Games Launcher"]                        $FLOAT
 for_window [class="net-technicpack-launcher-LauncherMain"]          $FLOAT
 for_window [title="Steam Guard - Computer Authorization Required"]  $FLOAT
 
-for_window [class="Spotify"]	  	    move to workspace $ws10
-for_window [class="Audacious"]		    move to workspace $ws10
+for_window [class="Cider"]	  	        move to workspace $ws10
 for_window [class="Telegram"]	  	    move to workspace $ws9
 for_window [class="TeamSpeak 3"]	    move to workspace $ws9
 for_window [class="discord"]	        move to workspace $ws9
 for_window [class="Steam"]		        move to workspace $ws8
-for_window [class="Brave"]	    	    move to workspace $ws6
 for_window [class="^Tor Browser"]	    move to workspace $ws7
 
 #                      _

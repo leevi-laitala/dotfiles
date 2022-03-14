@@ -15,7 +15,6 @@ app () {
   fi
 }
 
-app "keepassxc" "󰀈"
 app "steam" "󰓓"
 app "telegram-desktop" "󰔁"
 app "nextcloud" "󰀸"

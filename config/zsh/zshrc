@@ -33,7 +33,6 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^o' 'lfcd\n'
 
 # - Aliases -
 # Listing
@@ -41,6 +40,7 @@ alias ls="lsd -lL"
 alias la="lsd -AlL"
 alias lta="lsd -A --tree"
 alias lt="lsd --tree"
+alias lf="lfub"
 
 # Default arguments
 alias rg="rg -i -j 8 --pretty -- "
@@ -56,9 +56,9 @@ alias t="~/Applications/translator/translator"
 alias cdcode="cd ~/Documents/Repositories/Code/"
 
 # Youtube-DL
-alias yt='youtube-dl -f bestvideo+bestaudio --merge-output-format mkv --add-metadata -o "%(uploader)s - %(title)s.%(ext)s"'
-alias yta='youtube-dl -f bestaudio --extract-audio --add-metadata -o "%(title)s.%(ext)s"'
-alias ph='youtube-dl -f best --add-metadata -o "%(title)s.%(ext)s"'
+alias yt='yt-dlp -f bestvideo+bestaudio --merge-output-format mkv --add-metadata -o "%(uploader)s - %(title)s.%(ext)s"'
+alias yta='yt-dlp -f bestaudio --extract-audio --add-metadata -o "%(title)s.%(ext)s"'
+alias ph='yt-dlp -f best --add-metadata -o "%(title)s.%(ext)s"'
 alias yle='yle-dl --sublang none'
 
 # Package management
@@ -71,3 +71,5 @@ alias update="yay -Syu --answerclean N --answerdiff N"
 # Tmux aliases
 alias tnew="tmux new-session -s"
 alias tlist="tmux list-sessions"
+
+alias school="./scripts/script/school-bookmarks.sh"

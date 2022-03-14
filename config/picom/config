@@ -61,12 +61,10 @@ shadow-exclude = [
 	"override_redirect = 1 && !WM_CLASS@:s",
 	"name*='Notification'",
     "class_g='slop'",
-    "class_g='volnoti'",
     "class_g='Polybar'",
-    "class_g='Ulauncher'",
-    "class_g='Apple Music'",
     "class_g='i3-frame'",
     "class_g='Rofi'",
+    "class_g='zoom'",
     "class_g='Conky'"
 ];
 
@@ -108,10 +106,11 @@ blur-background-exclude = [
 	"window_type = 'popup_menu'",
 	"window_type = 'menu'",
     "class_g='slop'",
-    "class_g='Apple Music'",
     "class_g='Minecraft'",
     "class_g='Rofi'",
-	"name*='Notification'",
+    "class_g='zoom'",
+	"name *= 'rect-overlay'",
+    "name*='Notification'",
     "class_g='Ulauncher'"
 ];
 

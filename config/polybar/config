@@ -6,9 +6,9 @@
 ; 
 
 [colors]
-clear   = #20000000
+clear   = #10FFFFFF
 white   = #FFFFFFFF
-gray    = #FF9F9F9F
+gray    = #50FFFFFF
 alert   = #FFBD2C40
 
 [variables]
@@ -33,27 +33,22 @@ padding-left        = 2
 padding-right       = 3
 module-margin-left  = 2
 module-margin-right = 2
-modules-left        = i3 spotify mpd
+modules-left        = i3 mpd
 modules-center      = date
-modules-right       = running-apps pulseaudio bluetooth wlan wired
+modules-right       = running-apps pulseaudio bluetooth mullvad wlan wired
 font-0              = pango:Fira Sans Mono:pixelsize=16;5
 font-1              = MaterialDesignIcons:size=22;6
 font-2              = pango:Fira Sans Mono:pixelsize=12;3
+font-3              = MaterialDesignIcons:size=18;4
 
 [bar/shitty-aoc]
 inherit             = bar/samsung4k
 monitor             = HDMI-A-0
-;height              = 26
-;font-0              = pango:Fira Sans Mono:pixelsize=10;3
-;font-1              = MaterialDesignIcons:size=14;4
-;font-2              = pango:Fira Sans Mono:pixelsize=8;2
-
 
 [bar/thinkpad]
 inherit             = bar/shitty-aoc
 monitor             = eDP
-monitor-fallback    = XWAYLAND0
-modules-right       = running-apps pulseaudio bluetooth wlan battery
+modules-right       = running-apps pulseaudio bluetooth mullvad wlan battery
 
 ;                      _       _
 ;  _ __ ___   ___   __| |_   _| | ___  ___
@@ -79,7 +74,6 @@ ws-icon-7                   = 7;󰇧
 ws-icon-8                   = 8;󰊗
 ws-icon-9                   = 9;󰊌
 ws-icon-10                  = 10;󰝚
-ws-icon-11                  = 11;󰌋
 label-mode-foreground       = ${colors.white}
 label-mode-background       = ${colors.alert}
 label-mode-padding          = 2
@@ -95,11 +89,12 @@ label-urgent-background     = ${colors.alert}
 label-urgent-padding        = ${self.label-mode-padding}
 
 [module/running-apps]
-type        = custom/script
-format      = <label>
-interval    = 5
-exec        = ~/.config/polybar/scripts/running-apps.sh
-label       = %output%
+type                = custom/script
+format              = <label>
+format-foreground   = ${colors.gray}
+interval            = 5
+exec                = ~/.config/polybar/scripts/running-apps.sh
+label               = %{T4}%output%%{T-}
 
 [module/bluetooth]
 type        = custom/script
@@ -107,6 +102,14 @@ format      = <label>
 interval    = 5
 exec        = ~/.config/polybar/scripts/bluetooth.sh
 label       = %output%
+
+[module/mullvad]
+type        = custom/script
+format      = <label>
+interval    = 5
+exec        = ~/.config/polybar/scripts/mullvad-vpn.sh
+label       = %output%
+click-left  = dunstify "Mullvad VPN" "Connected to $(mullvad bridge list | grep -E "\($(mullvad bridge get | tail -n 1 | awk '{print $5}' | cut -c-2 | awk '{print $1}')\)")" -I /usr/share/icons/hicolor/128x128/apps/mullvad-vpn.png -r $(($(date +"%Y") - 1000))
 
 [module/spotify]
 type        = custom/script
@@ -130,7 +133,8 @@ interface           = ${variables.wireless-interface}
 interval            = 5
 label-connected     = "%essid%"
 format-connected    = "<ramp-signal>"
-format-disconnected = 󰤮
+;format-disconnected = 󰤮
+format-disconnected = 
 ramp-signal-0       = 󰤯 
 ramp-signal-1       = 󰤟 
 ramp-signal-2       = 󰤢 
@@ -140,15 +144,17 @@ ramp-signal-4       = 󰤨
 [module/date]
 type        = internal/date
 interval    = 10
-date        = %Y/%m/%d
+date        = "%a  "
+date-alt    = "%Y/%m/%d    󰥔 "
 time        = %H:%M
-label       = "󰃭 %date%    󰥔 %time%"
+time-alt    = %H:%M
+label       = "󰃭  %date%%time%"
 
 [module/wired]
 type        = custom/script
 format      = <label>
 interval    = 5
-exec        = ~/scripts/script/wired.sh
+exec        = ~/.config/polybar/scripts/wired.sh
 label       = %output%
 
 [module/pulseaudio]
@@ -163,6 +169,21 @@ ramp-volume-0   = 󰕿
 ramp-volume-1   = 󰖀
 ramp-volume-2   = 󰖀
 ramp-volume-3   = 󰕾
+
+[module/cpu]
+type = internal/cpu
+interval = 1
+format = <ramp-load>
+ramp-load-0 = 󰝦
+ramp-load-1 = 󰪞
+ramp-load-2 = 󰪟
+ramp-load-3 = 󰪠
+ramp-load-4 = 󰪡
+ramp-load-5 = 󰪢
+ramp-load-6 = 󰪣
+ramp-load-7 = 󰪤
+ramp-load-8 = 󰪥
+
 
 [module/battery]
 type                    = internal/battery
