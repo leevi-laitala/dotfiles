@@ -7,5 +7,6 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 #polybar thinkpad &
 polybar samsung4k &
 polybar shitty-aoc &
+polybar thinkpad &
 
 echo "Bars launched..."

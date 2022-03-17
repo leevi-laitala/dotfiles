@@ -77,8 +77,8 @@ bindsym $mod+Control+s      exec ~/Documents/Repositories/Code/screenshot-tool/s
 bindsym $mod+Control+b      exec sh ~/scripts/battery.sh
 
 bindsym $mod+Return         exec st
-#bindsym $mod+d             exec dmenu_run -i
-bindsym $mod+d              exec rofi -show drun -theme nord
+bindsym $mod+d             exec dmenu_run -i
+#bindsym $mod+d              exec rofi -show drun -theme nord
 bindsym $mod+w              exec firefox
 
 bindsym $mod+Shift+q        kill
